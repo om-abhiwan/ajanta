@@ -251,7 +251,6 @@ const BottleRennder = () => {
               <div className="infoList">
                 {" "}
                 <span>Capacity</span>{" "}
-                <span>:</span>{" "}
                 <span>4291+/-29.5ml</span>
               </div>
             </li>
@@ -260,7 +259,6 @@ const BottleRennder = () => {
               <div className="infoList">
                 {" "}
                 <span >Height</span>{" "}
-                <span >:</span>{" "}
                 <span >340.52+/-2mm</span>
               </div>
             </li>
@@ -269,7 +267,6 @@ const BottleRennder = () => {
               <div className="infoList">
                 {" "}
                 <span >Width</span>{" "}
-                <span >:</span>{" "}
                 <span >158.9+/-2.38mm</span>
               </div>
             </li>
@@ -278,7 +275,6 @@ const BottleRennder = () => {
               <div className="infoList">
                 {" "}
                 <span >Weight</span>{" "}
-                <span >:</span>{" "}
                 <span >1450+/-50gm</span>
               </div>
             </li>
@@ -287,7 +283,6 @@ const BottleRennder = () => {
               <div className="infoList">
                 {" "}
                 <span >Glass bottle Color</span>{" "}
-                <span >:</span>{" "}
                 <span >Amber</span>
               </div>
             </li>
@@ -296,7 +291,6 @@ const BottleRennder = () => {
               <div className="infoList">
                 {" "}
                 <span >Shape</span>{" "}
-                <span >:</span>{" "}
                 <span >Round</span>
               </div>
             </li>
@@ -305,7 +299,6 @@ const BottleRennder = () => {
               <div className="infoList">
                 {" "}
                 <span >Neck Type</span>{" "}
-                <span >:</span>{" "}
                 <span >Other</span>
               </div>
             </li>
