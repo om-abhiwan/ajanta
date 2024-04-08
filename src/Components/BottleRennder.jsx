@@ -250,9 +250,9 @@ const BottleRennder = () => {
               {" "}
               <div className="infoList">
                 {" "}
-                <span >Capacity</span>{" "}
-                <span >:</span>{" "}
-                <span >4291+/-29.5ml</span>
+                <span>Capacity</span>{" "}
+                <span>:</span>{" "}
+                <span>4291+/-29.5ml</span>
               </div>
             </li>
             <li>

@@ -13,12 +13,38 @@
   font-size: 3vh;
 }
 
-.infoList{
+.uList {
+  list-style: none;
+  padding: 0;
+}
+
+.uList li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2px;
+  align-items: center;
+}
+
+.infoList {
+  width: 100%;
   display: flex;
   flex-flow: row wrap;
-  /* justify-content: space-evenly; */
-  justify-content: center;
+  align-items: center;
+  justify-content: space-around;
 }
+
+.infoList span {
+  margin-right: 5px; /* Adjust spacing between spans */
+}
+
+
+/* .infoList{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+} */
+
+
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
