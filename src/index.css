@@ -4,6 +4,21 @@
   overflow: hidden;
 }
 
+.descrption{
+  text-align: center;
+}
+
+.uList{
+  text-align: center;
+  font-size: 3vh;
+}
+
+.infoList{
+  display: flex;
+  flex-flow: row wrap;
+  /* justify-content: space-evenly; */
+  justify-content: center;
+}
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
