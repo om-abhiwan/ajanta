@@ -5,15 +5,20 @@ import "@babylonjs/loaders/glTF";
 const BottleRennder = () => {
   const canvasRef = useRef(null);
   const engineRef = useRef(null);
+  const cameraRef = useRef(null);
   const [mesh2Visible, setMesh2Visible] = useState(1);
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    
     const engine = new BABYLON.Engine(canvas, true);
     engineRef.current = engine;
-
+    
     const createScene = () => {
       const scene = new BABYLON.Scene(engine);
+      scene.clearColor = new BABYLON.Color4(.1, .2, .3, 1);
+
+      console.log(scene.clearColor)
 
       const camera = new BABYLON.ArcRotateCamera(
         "camera",
@@ -23,19 +28,12 @@ const BottleRennder = () => {
         new BABYLON.Vector3(0, 0, 0),
         scene
       );
-      // to set the orbit
-      // to follow the mesh
+      cameraRef.current = camera;
       camera.attachControl(canvas, true);
-      // camera.setTarget(new BABYLON.Vector3(0, 0, 0));
       camera.lowerRadiusLimit = 4.4;
       camera.upperRadiusLimit = 6;
-
-      // for upper and lower movement of mesh
-      // camera.lowerBetaLimit = 2;
-      // camera.upperBetaLimit = Math.PI / 2;
-      camera.lowerBetaLimit = Math.PI / 5; //niche aane k liye
-      camera.upperBetaLimit = (2 * Math.PI) / 4.5;//upper jane k lye
-      // camera.beta = (camera.lowerBetaLimit + camera.upperBetaLimit) / 2 - 0.1;
+      // camera.lowerBetaLimit = Math.PI / 5; //niche aane k liye
+      // camera.upperBetaLimit = (2 * Math.PI) / 4.5;//upper jane k lye
       camera.wheelPrecision = 50;
 
       const light = new BABYLON.HemisphericLight(
@@ -60,6 +58,7 @@ const BottleRennder = () => {
     };
 
     const scene = createScene();
+    // canvas.style.backgroundColor = "#ffffff";
 
     const loadMesh = (filename, scaling, positionY) => {
       BABYLON.SceneLoader.ImportMesh(
@@ -76,8 +75,28 @@ const BottleRennder = () => {
             Math.PI / 2
           );
           mesh.rotationQuaternion = rotationQuaternion;
-          mesh.position.y = positionY;
+          
+          
+          console.log("Mesh position before:", mesh.position.toString());
+          // var boundingInfo = scene.meshes[1].getBoundingInfo();
+          // const meshHeight = boundingInfo.boundingBox.maximumWorld.y - boundingInfo.boundingBox.minimumWorld.y;
+          // const desiredPositionY = positionY + (meshHeight / 2);
+          // mesh.position.y = desiredPositionY;
+          
+          const boundingInfo = mesh.getBoundingInfo();
+          const meshHeight = boundingInfo.boundingBox.maximumWorld.y - boundingInfo.boundingBox.minimumWorld.y;
+          const desiredPositionY = positionY + (meshHeight / 2);
+          mesh.position.y = desiredPositionY;
+          
+          console.log("Mesh position Mid:", mesh.position.toString());
+          const rotateMesh = scene.meshes[1].getBoundingInfo();
+          cameraRef.current.target = rotateMesh.boundingBox.centerWorld;
+          cameraRef.current.radius = boundingInfo.boundingSphere.radius;
+          
+          console.log("Mesh position After:", mesh.position.toString());
 
+   
+          
           // Enable outline effect on the mesh
           scene.getMeshByName(mesh.name).outlineWidth = 0.1;
           scene.getMeshByName(mesh.name).outlineColor = BABYLON.Color3.Black();
@@ -87,9 +106,9 @@ const BottleRennder = () => {
 
     // Load initial mesh based on state
     if (mesh2Visible === 1) {
-      loadMesh("bttale_01.glb", 16, 0.3);
+      loadMesh("bttale_01.glb", 25, 0.13);
     } else if (mesh2Visible === 2) {
-      loadMesh("bttale_02.glb", 4.5, 0.3);
+      loadMesh("bttale_02.glb", 8, 0.3);
     }
 
     engine.runRenderLoop(() => {
@@ -111,10 +130,10 @@ const BottleRennder = () => {
   };
 
   return (
-    <div style={{ position: "relative", width: "100vw", height: "100vh" }}>
+    <div style={{ position: "relative", width: "100vw", height: "100vh", background: 'rgba(0.1, 0.2, 0.3, 1) !important' }}>
       <canvas
         ref={canvasRef}
-        style={{ width: "100%", height: "100%", outline: "none" }}
+        style={{ width: "100%", height: "60%", outline: "none", backgroundColor:"#fff" }}
       />
 
       <div
@@ -224,3 +243,4 @@ const BottleRennder = () => {
 };
 
 export default BottleRennder;
+

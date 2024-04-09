@@ -4,6 +4,10 @@
   overflow: hidden;
 }
 
+body{
+  background-color: #1A334D !important;
+}
+
 .descrption {
   text-align: center;
 }
