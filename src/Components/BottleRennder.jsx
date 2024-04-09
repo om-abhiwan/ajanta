@@ -33,8 +33,8 @@ const BottleRennder = () => {
       // for upper and lower movement of mesh
       // camera.lowerBetaLimit = 2;
       // camera.upperBetaLimit = Math.PI / 2;
-      camera.lowerBetaLimit = Math.PI / 5;
-      camera.upperBetaLimit = (2 * Math.PI) / 4;
+      camera.lowerBetaLimit = Math.PI / 5; //niche aane k liye
+      camera.upperBetaLimit = (2 * Math.PI) / 4.5;//upper jane k lye
       // camera.beta = (camera.lowerBetaLimit + camera.upperBetaLimit) / 2 - 0.1;
       camera.wheelPrecision = 50;
 
