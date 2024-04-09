@@ -4,11 +4,11 @@
   overflow: hidden;
 }
 
-.descrption{
+.descrption {
   text-align: center;
 }
 
-.uList{
+.uList {
   text-align: center;
   font-size: 3vh;
 }
@@ -37,13 +37,22 @@
   margin-right: 5px; /* Adjust spacing between spans */
 }
 
+.mainContainer {
+  background-color: gray;
+  margin: 0 10%;
+  border-radius: 24px;
+  padding: 2%;
+}
+
+.listContainer {
+  font-size:3vh;
+}
 
 /* .infoList{
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
 } */
-
 
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
