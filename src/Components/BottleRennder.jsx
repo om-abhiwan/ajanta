@@ -36,8 +36,8 @@ const BottleRennder = () => {
       camera.upperRadiusLimit = 6;
 
 
-      camera.lowerBetaLimit = -(2 * Math.PI); //niche aane k liye
-      camera.upperBetaLimit = (2 * Math.PI);//upper jane k lye
+      camera.lowerBetaLimit = -(100000* Math.PI); //niche aane k liye
+      camera.upperBetaLimit = (100000 * Math.PI);//upper jane k lye
 
 
 
