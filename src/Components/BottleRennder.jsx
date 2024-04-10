@@ -8,6 +8,8 @@ const BottleRennder = () => {
   const cameraRef = useRef(null);
   const [mesh2Visible, setMesh2Visible] = useState(1);
 
+  const [showPopup, setshowPopup] = useState(false)
+
   useEffect(() => {
     const canvas = canvasRef.current;
 
@@ -32,9 +34,16 @@ const BottleRennder = () => {
       camera.attachControl(canvas, true);
       camera.lowerRadiusLimit = 4.4;
       camera.upperRadiusLimit = 6;
+
+
+      camera.lowerBetaLimit = -(2 * Math.PI); //niche aane k liye
+      camera.upperBetaLimit = (2 * Math.PI);//upper jane k lye
+
+
+
       // camera.lowerBetaLimit = Math.PI / 5; //niche aane k liye
       // camera.upperBetaLimit = (2 * Math.PI) / 4.5;//upper jane k lye
-      camera.wheelPrecision = 50;
+      // camera.wheelPrecision = 50;
 
       const light = new BABYLON.HemisphericLight(
         "light",
@@ -138,18 +147,32 @@ const BottleRennder = () => {
     setMesh2Visible(mesh2Visible === 1 ? 2 : 1);
   };
 
+
+
+  const setPopup = () => {
+    if (showPopup === false) {
+      setshowPopup(true)
+    }
+  }
+
   return (
     <div style={{ position: "relative", width: "100vw", height: "100vh", background: 'rgba(0.1, 0.2, 0.3, 1) !important' }}>
       <canvas
         ref={canvasRef}
-        style={{ width: "100%", height: "60%", outline: "none", backgroundColor: "#fff" }}
+        style={{ width: "100%", height: "100%", outline: "none", backgroundColor: "#fff" }}
+        onClick={() => { setPopup() }}
       />
 
+
+
+      {showPopup ? 
       <div
+        className={showPopup.toString()}
         style={{
+          // display:"none",
           position: "absolute",
-          bottom: "5%",
-          left: 0,
+          top: "5%",
+          left: "60%",
           width: "100%",
           padding: "10px",
           color: "#fff",
@@ -229,6 +252,10 @@ const BottleRennder = () => {
         </div>
         {/* </div> */}
       </div>
+      :"" }
+
+
+
 
       <button
         onClick={handleToggleMesh}
