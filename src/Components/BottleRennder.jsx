@@ -118,7 +118,7 @@ const BottleRennder = () => {
 
       // Load initial mesh based on state
       if (mesh2Visible === 1) {
-        loadMesh("bttale_01.glb", 25, 0.13);
+        loadMesh("bttale_01.glb", 28, 0.13);
       } else if (mesh2Visible === 2) {
         loadMesh("bttale_02.glb", 8, 0.3);
       }
