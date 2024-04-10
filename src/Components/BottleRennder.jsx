@@ -73,11 +73,13 @@ const BottleRennder = () => {
             const mesh = meshes[0];
             mesh.scaling.setAll(scaling);
 
-            const rotationQuaternion = BABYLON.Quaternion.RotationAxis(
-              new BABYLON.Vector3(1, 0, 0),
-              Math.PI / 2
-            );
-            mesh.rotationQuaternion = rotationQuaternion;
+            if(mesh2Visible!==1){
+              const rotationQuaternion = BABYLON.Quaternion.RotationAxis(
+                new BABYLON.Vector3(1, 0, 0),
+                Math.PI / 2
+              );
+              mesh.rotationQuaternion = rotationQuaternion;
+            }
 
 
             console.log("Mesh position before:", mesh.position.toString());
@@ -117,10 +119,15 @@ const BottleRennder = () => {
       };
 
       // Load initial mesh based on state
+      // if (mesh2Visible === 1) {
+      //   loadMesh("bttale_01.glb", 28, 0.13);
+      // } else if (mesh2Visible === 2) {
+      //   loadMesh("bttale_02.glb", 8, 0.3);
+      // }
       if (mesh2Visible === 1) {
-        loadMesh("bttale_01.glb", 28, 0.13);
+        loadMesh("bottle1.glb", 28, 0.13);
       } else if (mesh2Visible === 2) {
-        loadMesh("bttale_02.glb", 8, 0.3);
+        loadMesh("bottle2.glb", 8, 0.3);
       }
       return scene;
     };
