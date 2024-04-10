@@ -41,7 +41,7 @@ const BottleRennder = () => {
         new BABYLON.Vector3(0, 1, 0),
         scene
       );
-      light.intensity = 1.8;
+      light.intensity = 1.6;
 
       // const outlineRenderer = new BABYLON.DefaultRenderingPipeline(
       //   "outlineRenderer",
