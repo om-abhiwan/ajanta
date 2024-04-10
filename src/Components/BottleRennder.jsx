@@ -179,7 +179,7 @@ const BottleRennder = () => {
         }}
       >
         <div className="mainContainer">
-          <h2 className="descrption">Description</h2>
+          {/* <h2 className="descrption">Description</h2> */}
 
           {/* <div className="infoContainer"> */}
           {mesh2Visible === 1 ? (
