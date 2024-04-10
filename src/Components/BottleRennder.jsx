@@ -10,10 +10,10 @@ const BottleRennder = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    
+
     const engine = new BABYLON.Engine(canvas, true);
     engineRef.current = engine;
-    
+
     const createScene = () => {
       const scene = new BABYLON.Scene(engine);
       scene.clearColor = new BABYLON.Color4(.1, .2, .3, 1);
@@ -41,75 +41,84 @@ const BottleRennder = () => {
         new BABYLON.Vector3(0, 1, 0),
         scene
       );
-      light.intensity = 0.7;
+      light.intensity = 1.8;
 
-      const outlineRenderer = new BABYLON.DefaultRenderingPipeline(
-        "outlineRenderer",
-        true,
-        scene,
-        [camera]
-      );
-      outlineRenderer.samples = 4; // Increase for smoother outlines
-      outlineRenderer.fxaaEnabled = true; // Enable anti-aliasing for outlines
-      outlineRenderer.imageProcessingEnabled = false; // Disable image processing for outlines
-      outlineRenderer.enablePixelPerfectMode = true; // Ensure pixel-perfect outlines
+      // const outlineRenderer = new BABYLON.DefaultRenderingPipeline(
+      //   "outlineRenderer",
+      //   true,
+      //   scene,
+      //   [camera]
+      // );
+      // outlineRenderer.samples = 4; // Increase for smoother outlines
+      // outlineRenderer.fxaaEnabled = true; // Enable anti-aliasing for outlines
+      // outlineRenderer.imageProcessingEnabled = false; // Disable image processing for outlines
+      // outlineRenderer.enablePixelPerfectMode = true; // Ensure pixel-perfect outlines
 
+      const loadMesh = (filename, scaling, positionY) => {
+        BABYLON.SceneLoader.ImportMesh(
+          "",
+          "/models/",
+          filename,
+          scene,
+          (meshes) => {
+            const mesh = meshes[0];
+            mesh.scaling.setAll(scaling);
+
+            const rotationQuaternion = BABYLON.Quaternion.RotationAxis(
+              new BABYLON.Vector3(1, 0, 0),
+              Math.PI / 2
+            );
+            mesh.rotationQuaternion = rotationQuaternion;
+
+
+            console.log("Mesh position before:", mesh.position.toString());
+            // var boundingInfo = scene.meshes[1].getBoundingInfo();
+            // const meshHeight = boundingInfo.boundingBox.maximumWorld.y - boundingInfo.boundingBox.minimumWorld.y;
+            // const desiredPositionY = positionY + (meshHeight / 2);
+            // mesh.position.y = desiredPositionY;
+
+            const boundingInfo = mesh.getBoundingInfo();
+            const meshHeight = boundingInfo.boundingBox.maximumWorld.y - boundingInfo.boundingBox.minimumWorld.y;
+            const desiredPositionY = positionY + (meshHeight / 2);
+            mesh.position.y = desiredPositionY;
+
+            console.log("Mesh position Mid:", mesh.position.toString());
+            const rotateMesh = scene.meshes[1].getBoundingInfo();
+            cameraRef.current.target = rotateMesh.boundingBox.centerWorld;
+            cameraRef.current.radius = boundingInfo.boundingSphere.radius;
+
+            console.log("Mesh position After:", mesh.position.toString());
+
+            // box.renderOutline = true;
+            // box.outlineColor = new BABYLON.Color3(255, 0, 0);
+            // box.outlineWidth = 1;
+            // box.forceSharedVertices();
+
+            mesh.renderOutline = true
+            mesh.outlineColor = new BABYLON.Color3(0, 0, 0);
+            mesh.outlineWidth = 200
+
+
+
+            // Enable outline effect on the mesh
+            // scene.getMeshByName(mesh.name).outlineWidth = 0.1;
+            // scene.getMeshByName(mesh.name).outlineColor = BABYLON.Color3.Black();
+          }
+        );
+      };
+
+      // Load initial mesh based on state
+      if (mesh2Visible === 1) {
+        loadMesh("bttale_01.glb", 25, 0.13);
+      } else if (mesh2Visible === 2) {
+        loadMesh("bttale_02.glb", 8, 0.3);
+      }
       return scene;
     };
 
     const scene = createScene();
     // canvas.style.backgroundColor = "#ffffff";
 
-    const loadMesh = (filename, scaling, positionY) => {
-      BABYLON.SceneLoader.ImportMesh(
-        "",
-        "/models/",
-        filename,
-        scene,
-        (meshes) => {
-          const mesh = meshes[0];
-          mesh.scaling.setAll(scaling);
-
-          const rotationQuaternion = BABYLON.Quaternion.RotationAxis(
-            new BABYLON.Vector3(1, 0, 0),
-            Math.PI / 2
-          );
-          mesh.rotationQuaternion = rotationQuaternion;
-          
-          
-          console.log("Mesh position before:", mesh.position.toString());
-          // var boundingInfo = scene.meshes[1].getBoundingInfo();
-          // const meshHeight = boundingInfo.boundingBox.maximumWorld.y - boundingInfo.boundingBox.minimumWorld.y;
-          // const desiredPositionY = positionY + (meshHeight / 2);
-          // mesh.position.y = desiredPositionY;
-          
-          const boundingInfo = mesh.getBoundingInfo();
-          const meshHeight = boundingInfo.boundingBox.maximumWorld.y - boundingInfo.boundingBox.minimumWorld.y;
-          const desiredPositionY = positionY + (meshHeight / 2);
-          mesh.position.y = desiredPositionY;
-          
-          console.log("Mesh position Mid:", mesh.position.toString());
-          const rotateMesh = scene.meshes[1].getBoundingInfo();
-          cameraRef.current.target = rotateMesh.boundingBox.centerWorld;
-          cameraRef.current.radius = boundingInfo.boundingSphere.radius;
-          
-          console.log("Mesh position After:", mesh.position.toString());
-
-   
-          
-          // Enable outline effect on the mesh
-          scene.getMeshByName(mesh.name).outlineWidth = 0.1;
-          scene.getMeshByName(mesh.name).outlineColor = BABYLON.Color3.Black();
-        }
-      );
-    };
-
-    // Load initial mesh based on state
-    if (mesh2Visible === 1) {
-      loadMesh("bttale_01.glb", 25, 0.13);
-    } else if (mesh2Visible === 2) {
-      loadMesh("bttale_02.glb", 8, 0.3);
-    }
 
     engine.runRenderLoop(() => {
       scene.render();
@@ -133,7 +142,7 @@ const BottleRennder = () => {
     <div style={{ position: "relative", width: "100vw", height: "100vh", background: 'rgba(0.1, 0.2, 0.3, 1) !important' }}>
       <canvas
         ref={canvasRef}
-        style={{ width: "100%", height: "60%", outline: "none", backgroundColor:"#fff" }}
+        style={{ width: "100%", height: "60%", outline: "none", backgroundColor: "#fff" }}
       />
 
       <div
